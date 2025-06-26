@@ -1,39 +1,58 @@
 ```markdown
 # Aigeon AI LeaksAPI
 
-Aigeon AI LeaksAPI is a Python-based server application designed to interact with the LeaksAPI service. It provides various tools to query and retrieve information related to data leaks, including email addresses, domains, and phone numbers. The application leverages the FastMCP framework to define and manage its tools, facilitating efficient and structured API interactions.
+## Project Description
+
+Aigeon AI LeaksAPI is a Python-based server application designed to interact with the LeaksAPI service. It provides a set of tools to perform various types of data breach searches, including email, domain, and phone number queries. The application leverages the FastMCP framework to create a robust and efficient microservice for handling requests and responses from the LeaksAPI.
 
 ## Features Overview
 
-- **Email Leak Check**: Verify if a specific email address is part of any known data leaks.
-- **Domain Leak Search**: Conduct comprehensive searches for leaks associated with entire domains.
-- **Phone Number Leak Search**: Identify leaks involving specific phone numbers.
-- **Premium Subscription Access**: Access premium features of the LeaksAPI service.
-- **Private Endpoint Access**: Utilize private endpoints for specialized queries.
+- **Email Breach Search**: Check if an email address has been involved in data breaches.
+- **Domain Breach Search**: Perform a comprehensive search for breaches associated with a specific domain.
+- **Phone Number Search**: Investigate if a phone number appears in any data leaks.
+- **Premium Subscription Check**: Access premium subscription features for enhanced data breach insights.
+- **Private Endpoint Access**: Utilize a private endpoint for specialized search queries.
 
 ## Main Features and Functionality
 
-1. **Password Premium Subscription**: This feature allows users to access premium data leak information for a specific email address. It is designed to provide detailed insights into potential password exposures.
-
-2. **Search Functionality**: Users can perform searches using specific criteria to identify if their data has been compromised. This tool is versatile and can be tailored to various search parameters.
-
-3. **Domain Search**: Instead of checking individual email addresses, this feature enables users to conduct a full domain search. It is particularly useful for organizations that want to ensure the security of their entire domain.
-
-4. **Phone Number Search**: This tool is dedicated to identifying leaks associated with phone numbers, providing an additional layer of security for users concerned about telecommunication data breaches.
-
-5. **Old Search**: A private endpoint designed for specialized queries, allowing access to historical data leak information.
+The application is structured to provide seamless interaction with the LeaksAPI service through several key functions. Each function serves a specific purpose in querying the API and processing the response data. The integration with FastMCP allows these functions to be registered as tools, making them easily accessible and executable.
 
 ## Main Functions Description
 
-- `passwords_premium_subscription() -> dict`: This function interacts with the LeaksAPI to retrieve premium subscription data for a specific email. It requires a valid API key and returns a JSON response containing the leak information.
+### `passwords_premium_subscription() -> dict`
 
-- `search(check: Annotated[str, Field(description='')]) -> dict`: This function performs a search based on the provided criteria. It sends a request to the public API endpoint and returns a JSON response with the search results.
+- **Description**: Accesses premium subscription features to provide detailed insights into password leaks.
+- **Returns**: A dictionary containing the response from the LeaksAPI.
 
-- `domain_search(type: Annotated[str, Field(description='')] = None) -> dict`: This function allows users to search for leaks associated with an entire domain. It accepts an optional type parameter to refine the search and returns the results in JSON format.
+### `search(check: Annotated[str, Field(description='')]) -> dict`
 
-- `phone_number_search() -> dict`: This function queries the LeaksAPI for leaks related to a specific phone number. It returns a JSON response with the relevant data.
+- **Description**: Performs a search query using a specified check parameter, which could be an email or other identifier.
+- **Parameters**:
+  - `check`: A string used to specify the search criteria.
+- **Returns**: A dictionary containing the search results from the LeaksAPI.
 
-- `old_search() -> dict`: This function accesses a private endpoint to retrieve historical data leak information for a given email address. It returns the data in JSON format.
+### `domain_search(type: Annotated[str, Field(description='')] = None) -> dict`
 
-The application is structured to run with the FastMCP framework, utilizing the `mcp.run(transport="stdio")` command to initiate the server. This setup ensures efficient handling of API requests and responses, providing a robust solution for data leak detection and prevention.
+- **Description**: Conducts a full domain search to identify breaches associated with a particular domain.
+- **Parameters**:
+  - `type`: An optional string parameter to specify the type of domain search.
+- **Returns**: A dictionary with the domain search results.
+
+### `phone_number_search() -> dict`
+
+- **Description**: Searches for data breaches involving a specific phone number.
+- **Returns**: A dictionary containing the phone number search results.
+
+### `old_search() -> dict`
+
+- **Description**: Accesses a private endpoint for conducting specialized search queries.
+- **Returns**: A dictionary with the results from the private endpoint query.
+
+## Technical Implementation
+
+The server is built using the FastMCP framework, which facilitates the creation and management of microservices. Each function is decorated with `@mcp.tool()`, registering it as a tool within the FastMCP environment. The application communicates with the LeaksAPI using HTTP GET requests, handling responses and errors to ensure reliable data retrieval.
+
+The server is designed to be executed with the `mcp.run(transport="stdio")` command, which initializes the service and listens for incoming requests via standard input/output streams.
+
+This README provides a comprehensive overview of the Aigeon AI LeaksAPI server application, detailing its features, functionality, and technical implementation. For further information or support, please refer to the official documentation or contact the development team.
 ```
